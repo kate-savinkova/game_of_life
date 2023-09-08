@@ -1,6 +1,9 @@
-This project - visualisation of a game of life, popular math game
+# Game of life
 
-Main rules:
+This project - visualisation of a ***game of life***, popular math game
+
+***Main rules:***
+
 Each square (or "cell") on the grid can be either alive or dead, and they evolve according to the following rules:
 
 - Any live cell with < 2 live neighbours dies (referred to as underpopulation).
@@ -10,4 +13,10 @@ Each square (or "cell") on the grid can be either alive or dead, and they evolve
 
 Project includes files with templates of starting fields, which can be passed by the stdio (./a.out < 5.txt)
 
-There're also special settings of the speed and condition of finishing a game.
+There're also special settings of the speed and condition of finishing a game:
+
+`a`: to make game be faster
+
+`z`: to make game be slower
+
+`q`: to finish the game
