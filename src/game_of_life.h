@@ -12,11 +12,11 @@
 
 #define STEP_DELAY_SECONDS 0.01
 
-void clear_screen();
+int initialize(int ***field);
 void display(int **field);
+void clear_screen();
 int update_field(int ***field);
 int counter(int **field, int x, int y);
-int initialize(int ***field);
 int is_game_over(int **field, int **prev_field);
 void print_menu();
 int run_program(int ***field);
