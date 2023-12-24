@@ -1,25 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <termios.h>
-#include <time.h>
-#include <unistd.h>
-
-#define COLS 80
-#define RAWS 25
-
-#define STEP_DELAY_SECONDS 0.01
-
-void clear_screen();
-void display(int **field);
-int update_field(int ***field);
-int counter(int **field, int x, int y);
-int initialize(int ***field);
-int is_game_over(int **field, int **prev_field);
-void print_menu();
+#include "game_of_life.h"
 
 int main() {
     int **field;
-    int speed = 10, flag = 0;
+    int flag = 0;
     int check = initialize(&field);
     FILE *rc = freopen("/dev/tty", "r",
                        stdin);  // Перенаправление стандартного ввода для чтения в терминале
@@ -27,9 +10,12 @@ int main() {
         printf("n/a");
         flag = 1;
     }
+    run_program(&field);
+    return 0;
+}
 
+int run_program(int ***field) {
     // Структура для хранения настроек терминала
-
     struct termios initial_settings, new_settings;
     tcgetattr(0, &initial_settings);
     new_settings = initial_settings;
@@ -37,11 +23,11 @@ int main() {
     new_settings.c_cc[VTIME] = STEP_DELAY_SECONDS * 10;
     new_settings.c_cc[VMIN] = 0;
 
-    int keep_running = 1;
+    int keep_running = 1, flag = 0, speed = 10;
 
     while (flag == 0 && keep_running) {
-        display(field);
-        int check_error = update_field(&field);
+        display(*field);
+        int check_error = update_field(&(*field));
         if (check_error) {
             flag = 1;
         }
@@ -70,7 +56,7 @@ int main() {
             usleep(5000 * speed);
         }
     }
-    free(field);
+    free(*field);
     return 0;
 }
 
